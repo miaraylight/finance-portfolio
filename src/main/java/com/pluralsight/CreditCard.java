@@ -6,15 +6,30 @@ public class CreditCard extends Account{
     }
 
     public void charge(double amount) {
-        System.out.println("CC charge for: " + amount);
+        if (amount > 0) {
+            super.setBalance(super.getBalance() + amount);
+            System.out.println("Charged $" + amount + " to credit card.");
+        } else {
+            System.out.println("Charge amount must be positive.");
+        }
     }
 
     public void pay(double amount) {
-        System.out.println("Paid");
+        if (amount > 0) {
+            double newBalance = super.getBalance() - amount;
+            if (newBalance < 0) {
+                newBalance = 0; // no negative balances (fully paid off)
+            }
+            super.setBalance(newBalance);
+            System.out.println("Payment of $" + amount + " made.");
+        } else {
+            System.out.println("Payment amount must be positive.");
+        }
     }
 
+    // The value here can represent the outstanding debt (negative asset)
     @Override
     public double getValue() {
-        return 0;
+        return -super.getBalance(); // debt reduces your total net worth
     }
 }

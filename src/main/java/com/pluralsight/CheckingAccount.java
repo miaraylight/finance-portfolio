@@ -6,16 +6,26 @@ public class CheckingAccount extends Account{
     }
 
     public void deposit(double amount) {
-        System.out.println(amount);
+        if (amount > 0) {
+            super.setBalance(super.getBalance() + amount);
+        } else {
+            System.out.println("Deposit amount must be positive.");
+        }
     }
 
     public double withdraw(double amount) {
-        return 0;
+        double balance = super.getBalance();
+        if (amount > 0 && amount <= balance) {
+            super.setBalance(balance - amount);
+            return amount;
+        } else {
+            System.out.println("Insufficient funds or invalid withdrawal amount.");
+            return 0;
+        }
     }
-
 
     @Override
     public double getValue() {
-        return 0;
+        return super.getBalance();
     }
 }
